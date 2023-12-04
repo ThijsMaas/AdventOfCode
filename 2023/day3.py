@@ -32,7 +32,6 @@ def has_adjacent(number: Number, symbols: list[Symbol]):
     """Checks if the number has any adjacent symbols."""
     for symbol in symbols:
         if is_adjacent(number, symbol):
-            # print(f"Adjacent: {number} {symbol}")
             return True
     return False
 
@@ -62,7 +61,6 @@ def part_1(input_file: TextIOWrapper):
     part_numbers = []
     for number in numbers:
         if has_adjacent(number, symbols):
-            # print(f"Number {number} has adjacent symbols")
             part_numbers.append(number.value)
 
     print(f"Part number sum: {sum(part_numbers)}")

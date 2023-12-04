@@ -1,16 +1,6 @@
 from io import TextIOWrapper
 
-DIGIT_WORDS = {
-    "one": 1,
-    "two": 2,
-    "three": 3,
-    "four": 4,
-    "five": 5,
-    "six": 6,
-    "seven": 7,
-    "eight": 8,
-    "nine": 9,
-}
+DIGIT_WORDS = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 
 def part_1(input_file: TextIOWrapper):
@@ -38,7 +28,7 @@ def part_2(input_file: TextIOWrapper):
         for i, char in enumerate(line):
             if char.isdigit():
                 digit_positions[i] = char
-        for word, digit in DIGIT_WORDS.items():
+        for digit, word in enumerate(DIGIT_WORDS):
             if word in line:
                 digit_positions[line.rfind(word)] = str(digit)
                 digit_positions[line.find(word)] = str(digit)
