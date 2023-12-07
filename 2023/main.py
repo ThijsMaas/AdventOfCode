@@ -1,5 +1,5 @@
-from sys import argv
 from importlib import import_module
+from sys import argv
 
 
 def main():

@@ -1,6 +1,6 @@
+import re
 from io import TextIOWrapper
 from typing import NamedTuple
-import re
 
 
 class Number(NamedTuple):
