@@ -1,6 +1,6 @@
+import math
 from io import TextIOWrapper
 from itertools import cycle
-import math
 
 
 def parse_input(input: TextIOWrapper):

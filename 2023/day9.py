@@ -1,4 +1,3 @@
-from functools import reduce
 from io import TextIOWrapper
 
 
@@ -18,7 +17,7 @@ def extrapolate(numbers: list[int]):
             break
         numbers = differences
     # Sum the last value in each list
-    return sum([l[-1] for l in difference_lists])
+    return sum([lst[-1] for lst in difference_lists])
 
 
 def part_1(input: TextIOWrapper):
