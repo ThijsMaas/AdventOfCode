@@ -1,7 +1,4 @@
-from dataclasses import dataclass
 from io import TextIOWrapper
-
-import tqdm
 
 Node = tuple[int, int]
 
@@ -70,22 +67,26 @@ def is_inside_path(path: list[Node], position: Node) -> bool:
     if position in path:
         return False
 
-    x, y = position
-    n = len(path)
-    # Determine with ray casting algorithm
-    inside = False
-    p1x, p1y = path[0]
-    for i in range(n + 1):
-        p2x, p2y = path[i % n]
-        if y > min(p1y, p2y):
-            if y <= max(p1y, p2y):
-                if x <= max(p1x, p2x):
-                    if p1y != p2y:
-                        xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
-                    if p1x == p2x or x <= xinters:
-                        inside = not inside
-        p1x, p1y = p2x, p2y
-    return inside
+    # Count the direction changes of the path that the ray crosses
+    direction = 0
+    for i, path_node in enumerate(path):
+        # If path_node is on the same x axis, on the right of the position
+        # These are all the path nodes the ray to the right crosses when going from the position to the right
+        if path_node[1] == position[1] and path_node[0] > position[0]:
+            previous_path_node = path[i - 1] if i > 0 else path[-1]
+            next_path_node = path[(i + 1)] if i < len(path) - 1 else path[0]
+            # Find the direction of the 3 node path
+            if previous_path_node[1] > path_node[1]:
+                direction += 1
+            elif previous_path_node[1] < path_node[1]:
+                direction -= 1
+            if next_path_node[1] > path_node[1]:
+                direction -= 1
+            elif next_path_node[1] < path_node[1]:
+                direction += 1
+
+    # If the final direction changes is not 0, then the position is inside the path
+    return direction != 0
 
 
 def part_2(input: TextIOWrapper):
@@ -95,15 +96,15 @@ def part_2(input: TextIOWrapper):
 
     path = find_circular_path(graph, start)
 
-    # For each position in the path matrix, check if it is within the path area
-    height = max(node[1] for node in graph.keys()) - 1
-    min_height = min(node[1] for node in graph.keys()) + 1
-    width = max(node[0] for node in graph.keys()) - 1
-    min_width = min(node[0] for node in graph.keys()) + 1
+    height = max(node[0] for node in graph.keys())
+    min_height = min(node[0] for node in graph.keys())
+    width = max(node[1] for node in graph.keys())
+    min_width = min(node[1] for node in graph.keys())
 
+    # For each position within the path bounds, check if it is enclosed by the path
     inside_positions = []
-    for x in tqdm.tqdm(range(min_width, width)):
-        for y in range(min_height, height):
+    for x in range(min_height, height):
+        for y in range(min_width, width):
             if is_inside_path(path, (x, y)):
                 inside_positions.append((x, y))
     print(len(inside_positions))
