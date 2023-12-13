@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 from dataclasses import dataclass
-from io import TextIOWrapper
 
 
 @dataclass
@@ -54,10 +55,10 @@ def parse_mappings(mapping_records: list[str]) -> list[list[RangeMap]]:
     return mappings
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
 
-    seed_line, *mapping_records = input.read().split("\n\n")
+    seed_line, *mapping_records = input_text.split("\n\n")
     mappings = parse_mappings(mapping_records)
     seeds_values = [int(seed) for seed in seed_line.split(": ")[1].split()]
     seed_ranges = [
@@ -72,10 +73,10 @@ def part_1(input: TextIOWrapper):
     print(min_location_value)
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
 
-    seed_line, *mapping_records = input.read().split("\n\n")
+    seed_line, *mapping_records = input_text.split("\n\n")
     mappings = parse_mappings(mapping_records)
     seeds_values = [int(seed) for seed in seed_line.split(": ")[1].split()]
     seed_ranges = [
@@ -91,10 +92,10 @@ def part_2(input: TextIOWrapper):
     print(min_location_value)
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

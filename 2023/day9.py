@@ -1,4 +1,4 @@
-from io import TextIOWrapper
+#!/usr/bin/env python3
 
 
 def get_differences(numbers: list[int]):
@@ -20,30 +20,30 @@ def extrapolate(numbers: list[int]):
     return sum([lst[-1] for lst in difference_lists])
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
     total = 0
-    for line in input.readlines():
+    for line in input_text.split("\n"):
         numbers = [int(n) for n in line.split()]
         next_number = extrapolate(numbers)
         total += next_number
     print(total)
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     total = 0
-    for line in input.readlines():
+    for line in input_text.split("\n"):
         numbers = [int(n) for n in line.split()]
         next_number = extrapolate(numbers[::-1])
         total += next_number
     print(total)
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

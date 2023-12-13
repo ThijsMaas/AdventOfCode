@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 from dataclasses import dataclass
-from io import TextIOWrapper
 
 
 @dataclass
@@ -22,25 +23,25 @@ def get_card_points(winning_numbers: int):
     return 2 ** (winning_numbers - 1)
 
 
-def yield_cards(input: TextIOWrapper):
-    for i, line in enumerate(input.readlines()):
+def yield_cards(input_text: str):
+    for i, line in enumerate(input_text.split("\n")):
         my_numbers_str, winning_numbers_str = line.split(":")[1].split("|")
         my_numbers = set(int(num) for num in my_numbers_str.split())
         winning_numbers = set(int(num) for num in winning_numbers_str.split())
         yield Card(i, my_numbers, winning_numbers)
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
     sum_winning = 0
-    for card in yield_cards(input):
+    for card in yield_cards(input_text):
         sum_winning += get_card_points(card.get_winning_amount())
     print(f"Sum winning: {sum_winning}")
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
-    cards = [card for card in yield_cards(input)]
+    cards = [card for card in yield_cards(input_text)]
     cards_played = 0
     while cards:
         card = cards.pop(0)
@@ -50,10 +51,10 @@ def part_2(input: TextIOWrapper):
     print(f"Cards played: {cards_played}")
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 import re
-from io import TextIOWrapper
 from typing import NamedTuple
 
 
@@ -37,14 +38,14 @@ def has_adjacent(number: Number, symbols: list[Symbol]):
 
 
 def parse_numbers_and_symbols(
-    input_file: TextIOWrapper,
+    input_text: str,
 ) -> tuple[list[Number], list[Symbol]]:
     """Parses the input file and returns a list of numbers and symbols."""
     number_pattern = r"\d+"
     symbol_pattern = r"[^\d.\n]"
     numbers = []
     symbols = []
-    for line_idx, line in enumerate(input_file):
+    for line_idx, line in enumerate(input_text):
         for digit in re.finditer(number_pattern, line):
             numbers.append(Number(int(digit.group()), line_idx, digit.start(), digit.end() - 1))
         for symbol in re.finditer(symbol_pattern, line):
@@ -52,10 +53,10 @@ def parse_numbers_and_symbols(
     return numbers, symbols
 
 
-def part_1(input_file: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
 
-    numbers, symbols = parse_numbers_and_symbols(input_file)
+    numbers, symbols = parse_numbers_and_symbols(input_text)
 
     # Finding adjacent numbers
     part_numbers = []
@@ -76,10 +77,10 @@ def is_gear(symbol: Symbol, numbers: list[Number]):
     return None
 
 
-def part_2(input_file: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     gear_sum = 0
-    numbers, symbols = parse_numbers_and_symbols(input_file)
+    numbers, symbols = parse_numbers_and_symbols(input_text)
     for symbol in symbols:
         if gear := is_gear(symbol, numbers):
             gear_sum += gear
@@ -87,10 +88,10 @@ def part_2(input_file: TextIOWrapper):
     print(f"Gear sum: {gear_sum}")
 
 
-def solution(input_file: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input_file)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input_file)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

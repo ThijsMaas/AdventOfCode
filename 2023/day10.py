@@ -1,15 +1,14 @@
-from io import TextIOWrapper
+#!/usr/bin/env python3
 
 Node = tuple[int, int]
 
 Graph = dict[Node, tuple[Node, Node]]
 
 
-def build_graph(input: TextIOWrapper) -> tuple[Graph, Node]:
+def build_graph(input_text: str) -> tuple[Graph, Node]:
     nodes: Graph = {}
     start: Node = (0, 0)
-
-    for y, line in enumerate(input.readlines()):
+    for y, line in enumerate(input_text.split("\n")):
         for x, char in enumerate(line.strip()):
             if char == ".":
                 continue
@@ -56,9 +55,9 @@ def find_circular_path(graph: Graph, start: Node) -> list[Node]:
     return path
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
-    graph, start = build_graph(input)
+    graph, start = build_graph(input_text)
     path = find_circular_path(graph, start)
     print(len(path) / 2)
 
@@ -89,10 +88,10 @@ def is_inside_path(path: list[Node], position: Node) -> bool:
     return direction != 0
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
 
-    graph, start = build_graph(input)
+    graph, start = build_graph(input_text)
 
     path = find_circular_path(graph, start)
 
@@ -110,10 +109,10 @@ def part_2(input: TextIOWrapper):
     print(len(inside_positions))
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

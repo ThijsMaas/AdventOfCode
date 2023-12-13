@@ -1,4 +1,4 @@
-from io import TextIOWrapper
+#!/usr/bin/env python3
 
 
 def shortest_equal(l1, l2) -> bool:
@@ -23,12 +23,10 @@ def search_pattern(pattern: str) -> int:
 
     # Find the mirror index
     if row_index := find_mirror_index(rows):
-        # assert row_index != find_mirror_index(rows, False)
-        print(f"Mirror row index: {row_index}")
+        # print(f"Mirror row index: {row_index}")
         return row_index * 100
     elif col_index := find_mirror_index(cols):
-        # assert col_index != find_mirror_index(cols, False)
-        print(f"Mirror col index: {col_index}")
+        # print(f"Mirror col index: {col_index}")
         return col_index
     else:
         raise ValueError("No mirror index found")
@@ -60,45 +58,43 @@ def shortest_equal_smudge(l1, l2) -> bool:
     return n_smudge == 1
 
 
-def search_pattern_smudge(patern: str) -> int:
-    rows = patern.split("\n")
+def search_pattern_smudge(pattern: str) -> int:
+    rows = pattern.split("\n")
     cols = ["".join([row[i] for row in rows]) for i in range(len(rows[0]))]
 
     # Find the mirror index
     if row_index := find_mirror_index_smudge(rows):
-        # assert row_index != find_mirror_index(rows, False)
-        print(f"Mirror row index: {row_index}")
+        # print(f"Mirror row index: {row_index}")
         return row_index * 100
     elif col_index := find_mirror_index_smudge(cols):
-        # assert col_index != find_mirror_index(cols, False)
-        print(f"Mirror col index: {col_index}")
+        # print(f"Mirror col index: {col_index}")
         return col_index
     else:
         raise ValueError("No mirror index found")
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
     num_sum = 0
-    for pattern in input.read().split("\n\n"):
+    for pattern in input_text.split("\n\n"):
         num = search_pattern(pattern)
         num_sum += num
     print(f"total: {num_sum}")
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     num_sum = 0
-    for pattern in input.read().split("\n\n"):
+    for pattern in input_text.split("\n\n"):
         num = search_pattern_smudge(pattern)
         num_sum += num
     print(f"total: {num_sum}")
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

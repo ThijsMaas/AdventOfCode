@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 from functools import cache
-from io import TextIOWrapper
 import re
 
 
@@ -28,10 +29,10 @@ def arrangements_from_pattern(search_string: str, *patterns: re.Pattern):
     return matches
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
     total = 0
-    for line in input.readlines():
+    for line in input_text.split("\n"):
         search_string, groups_string = line.split(" ")
         group_patterns = [re.compile(f"[.?][#?]{{{int(s)}}}[.?]") for s in groups_string.split(",")]
 
@@ -41,10 +42,10 @@ def part_1(input: TextIOWrapper):
     print(total)
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     total = 0
-    for line in input.readlines():
+    for line in input_text.split("\n"):
         search_string, groups_string = line.split(" ")
         # Unfold 5 times
         search_string = "?".join([search_string] * 5)
@@ -57,10 +58,10 @@ def part_2(input: TextIOWrapper):
     print(total)
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

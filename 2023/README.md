@@ -1,33 +1,13 @@
 # Advent of Code 2023
 [Calendar](https://adventofcode.com/2023)
 
-This is the boilerplate I start each day with to make it easy to run from the main script.
+Using an alias `aoc` for `python main.py` I can do the following:
 
-```python
-from io import TextIOWrapper
+`$ aoc init 15` to initialize the biolerplate for day 15.
 
+`$ aoc 15 1` to run the first part of day 15.
 
-def part_1(input: TextIOWrapper):
-    print("Part 1")
+`$ aoc 15 2` to run the second part of day 15.
 
-
-def part_2(input: TextIOWrapper):
-    print("Part 2")
-
-
-def solution(input: TextIOWrapper, part_number: int):
-    if part_number == 1:
-        part_1(input)
-    elif part_number == 2:
-        part_2(input)
-    else:
-        raise ValueError(f"Invalid part number: {part_number}")
-
-```
-
-With this I can simply run the following to get the solution for day 1, part 1 and day 1, part 2.
-
-```bash
-python main.py 1 1
-python main.py 1 2
-```
+Data is fetched automatically by the script using the aocd library.
+Handing in solutions I do manually.

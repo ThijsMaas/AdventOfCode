@@ -1,4 +1,4 @@
-from io import TextIOWrapper
+#!/usr/bin/env python3
 
 
 def hand_is_possible(hand_str: str, max_colors: tuple[int, int, int]) -> bool:
@@ -44,10 +44,10 @@ def game_min_cubes(game_str: str):
     return game_min
 
 
-def part_1(input_file: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
     possible_games = []
-    for line in input_file.readlines():
+    for line in input_text.split("\n"):
         game_str, hands_str = line.split(":")
         game_idx = int(game_str.split(" ")[1])
         game_str = hands_str.strip()
@@ -58,10 +58,10 @@ def part_1(input_file: TextIOWrapper):
     print("Possible Games: ", sum(possible_games))
 
 
-def part_2(input_file: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     power_sum = 0
-    for line in input_file.readlines():
+    for line in input_text.split("\n"):
         game_str = line.split(":")[1].strip()
         min_red, min_green, min_blue = game_min_cubes(game_str)
         game_power = min_red * min_green * min_blue
@@ -69,10 +69,10 @@ def part_2(input_file: TextIOWrapper):
     print("Power Sum: ", power_sum)
 
 
-def solution(input_file: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input_file)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input_file)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

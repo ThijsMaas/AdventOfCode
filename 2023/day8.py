@@ -1,14 +1,15 @@
+#!/usr/bin/env python3
+
 import math
-from io import TextIOWrapper
 from itertools import cycle
 
 
-def parse_input(input: TextIOWrapper):
+def parse_input(input_text: str):
     nodes: dict[str, list[str]] = {}
-    directions = cycle(list(input.readline().strip()))
-    input.readline()
+    lines = input_text.split("\n")
+    directions = cycle(list(lines[0].strip()))
 
-    for line in input.readlines():
+    for line in lines[2:]:
         start = line[:3]
         left = line[7:10]
         right = line[12:15]
@@ -17,9 +18,9 @@ def parse_input(input: TextIOWrapper):
     return nodes, directions
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
-    nodes, directions = parse_input(input)
+    nodes, directions = parse_input(input_text)
 
     start = "AAA"
     end = "ZZZ"
@@ -38,9 +39,9 @@ def part_1(input: TextIOWrapper):
     print(steps)
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
-    nodes, directions = parse_input(input)
+    nodes, directions = parse_input(input_text)
 
     start_nodes = [node for key, node in nodes.items() if key.endswith("A")]
 
@@ -61,10 +62,10 @@ def part_2(input: TextIOWrapper):
     print(math.lcm(*loop_end))
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")

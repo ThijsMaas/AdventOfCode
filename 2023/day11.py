@@ -1,4 +1,5 @@
-from io import TextIOWrapper
+#!/usr/bin/env python3
+
 from itertools import combinations
 
 
@@ -6,9 +7,9 @@ def get_distance(a: tuple[int, int], b: tuple[int, int]) -> int:
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
-def get_galaxies(input: TextIOWrapper, expansion_rate=1) -> list[tuple[int, int]]:
+def get_galaxies(input_text: str, expansion_rate=1) -> list[tuple[int, int]]:
     galaxies = []
-    lines = input.readlines()
+    lines = input_text.split("\n")
     x_len = len(lines[0].strip())
     y_len = len(lines)
 
@@ -34,28 +35,28 @@ def get_galaxies(input: TextIOWrapper, expansion_rate=1) -> list[tuple[int, int]
     return expanded_galaxies
 
 
-def part_1(input: TextIOWrapper):
+def part_1(input_text: str):
     print("Part 1")
-    galaxies = get_galaxies(input)
+    galaxies = get_galaxies(input_text)
 
     total_distance = sum(get_distance(g1, g2) for g1, g2 in combinations(galaxies, 2))
     print(total_distance)
 
 
-def part_2(input: TextIOWrapper):
+def part_2(input_text: str):
     print("Part 2")
     expansion_rate = int(1e6)
-    galaxies = get_galaxies(input, expansion_rate - 1)
+    galaxies = get_galaxies(input_text, expansion_rate - 1)
     print(f"Galaxies: {len(galaxies)}")
 
     total_distance = sum(get_distance(g1, g2) for g1, g2 in combinations(galaxies, 2))
     print(f"Total distance: {int(total_distance)}")
 
 
-def solution(input: TextIOWrapper, part_number: int):
+def solution(input_text: str, part_number: int):
     if part_number == 1:
-        part_1(input)
+        part_1(input_text)
     elif part_number == 2:
-        part_2(input)
+        part_2(input_text)
     else:
         raise ValueError(f"Invalid part number: {part_number}")
