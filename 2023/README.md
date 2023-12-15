@@ -1,13 +1,13 @@
 # Advent of Code 2023
 Link: [Calendar](https://adventofcode.com/2023)
 
-This year I will be using Python to solve the puzzles. My main goal is not to be the fastest, but to write readable, type-hinted code and provide generic solutions. I wont use external libraries, like numpy or scipy, but I will use the standard library for handy itertools and collections.
+This year I will be using Python to solve the puzzles. My main goal is not to be the fastest, but to write readable, type-hinted code and provide generic solutions. I wont use external libraries, like numpy or scipy, but I will use standard libraries like itertools and collections.
 
 ## Status:
-| Day | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  | 14  | 15  | 16  | 17  | 18  | 19  | 20  | 21  | 22  | 23  | 24  | 25  |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Part 1 | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: |  |  |  |  |  |  |  |  |  |  |
-| Part 2 | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: | :star2: |  |  |  |  |  |  |  |  |  |  |
+|Day|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|P1|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|||||||||||
+|P2|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|:star2:|||||||||||
 
 # Tooling:
 
