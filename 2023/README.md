@@ -5,7 +5,7 @@ This year I will be using Python to solve the puzzles. My main goal is not to be
 
 ## Status:
 
-**1** (⭐/⭐)
+**1** [⭐/⭐]
 **2** [⭐/⭐]
 **3** [⭐/⭐]
 **4** [⭐/⭐]
