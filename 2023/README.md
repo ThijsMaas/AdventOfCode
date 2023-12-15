@@ -5,8 +5,8 @@ This year I will be using Python to solve the puzzles. My main goal is not to be
 
 ## Status:
 
-1: :star:/:star:
-2: :star:/:star:
+1: :star: / :star:
+2: :star: / :star:
 3: :star:/:star:
 4: :star:/:star:
 5: :star:/:star:
