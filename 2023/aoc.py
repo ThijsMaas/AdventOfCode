@@ -29,7 +29,7 @@ def solution(input_text: str, part_number: int):
         raise ValueError(f"Invalid part number: {part_number}")
 """
     day = argv[2]
-    with open(f"day{day}.py", "w") as f:
+    with open(f"src/day{day}.py", "w") as f:
         f.write(boiler_plate)
 
 
@@ -44,7 +44,7 @@ def main():
 
     for i in range(1, 26):
         if day_number == str(i):
-            day_module = import_module(f"day{i}")
+            day_module = import_module(f"src.day{day_number}")
             if use_example:
                 input_data = day_module.EXAMPLE_INPUT
             else:
