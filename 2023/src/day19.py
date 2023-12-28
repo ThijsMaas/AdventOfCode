@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass
 import operator
-import profile
 import re
 from typing import NamedTuple
 
