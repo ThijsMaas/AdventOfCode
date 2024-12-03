@@ -72,6 +72,7 @@ def get_calendar(year: int | str):
         assert 0 < day < 26, f"Invalid day: {day}"
         if match.group(2):
             days[day - 1] = 1 if match.group(2) == "one" else 2
+    update_readme_calendar(days)
     return days
 
 
@@ -81,6 +82,14 @@ def update_readme_calendar(days: list[int]):
     for day_index, stars in enumerate(days):
         star1 = "⭐" if stars > 0 else " "
         star2 = "⭐" if stars > 1 else " "
-        table.append(f"| [Day {day_index + 1}](https://adventofcode.com/2024/day/1) | {star1} | {star2} |")
+        table.append(f"| [Day {day_index + 1}](https://adventofcode.com/2024/day/{day_index + 1}) | {star1} | {star2} |")
 
-    # Get "<!--- advent_readme_stars --->" in readme
+    # Replace the section between the  "<!--- advent_readme_stars --->" comments in the readme with the new table
+    divider_comment = "<!--- advent_readme_stars --->"
+    new_table = f"{divider_comment}\n{'\n'.join(table)}\n{divider_comment}"
+    table_pattern = rf"{divider_comment}\n[\s\S]*\n{divider_comment}"
+    with open(README, "r+") as f:
+        readme = f.read()
+        new_readme = re.sub(table_pattern, new_table, readme)
+        f.seek(0)
+        f.write(new_readme)
