@@ -1,21 +1,58 @@
+from itertools import pairwise
 import re
 from sys import argv
 from api import get_input, submit_answer
 from utils import timing
-
+from operator import lt, gt
 
 EXAMPLE_INPUT = """\
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
 """
+
+
+def check_order(numbers):
+    op = lt if numbers[0] < numbers[1] else gt
+    for a, b in pairwise(numbers):
+        if not (op(a, b) and abs(a - b) <= 3):
+            return False
+    return True
 
 
 @timing
 def part1(input_data: str):
-    pass
+    safe = 0
+    for line in input_data.splitlines():
+        numbers = list(map(int, line.split()))
+        if check_order(numbers):
+            safe += 1
+    return safe
+
+
+def brute_force(numbers):
+    if check_order(numbers):
+        return True
+    else:
+        for i in range(len(numbers)):
+            # Remove i from numbers and check again
+            res = check_order(numbers[:i] + numbers[i + 1 :])
+            if res:
+                return True
+    return False
 
 
 @timing
 def part2(input_data: str):
-    pass
+    safe = 0
+    for line in input_data.splitlines():
+        numbers = list(map(int, line.split()))
+        if brute_force(numbers):
+            safe += 1
+    return safe
 
 
 if __name__ == "__main__":

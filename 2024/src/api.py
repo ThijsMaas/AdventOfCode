@@ -6,6 +6,7 @@ import requests
 
 HOST = "https://adventofcode.com"
 CACHE_DIR = ".cache"
+README = Path(__file__).parent.parent / "README.md"
 
 # Load cookie
 with open(".cookie") as f:
@@ -37,9 +38,7 @@ def submit_answer(year: int | str, day: int, part: int, answer: int):
     )
     response.raise_for_status()
     # Get the line with the main article
-    article = re.search(
-        r"<article><p>(.*?)</p></article>", response.text, re.DOTALL
-    ).group(1)
+    article = re.search(r"<article><p>(.*?)</p></article>", response.text, re.DOTALL).group(1)
 
     if "That's the right answer" in article:
         print("That's the right answer")
@@ -74,3 +73,14 @@ def get_calendar(year: int | str):
         if match.group(2):
             days[day - 1] = 1 if match.group(2) == "one" else 2
     return days
+
+
+def update_readme_calendar(days: list[int]):
+    # add stars to readme
+    table = ["| Day | Part 1 | Part 2 |", "| :---: | :---: | :---: |"]
+    for day_index, stars in enumerate(days):
+        star1 = "⭐" if stars > 0 else " "
+        star2 = "⭐" if stars > 1 else " "
+        table.append(f"| [Day {day_index + 1}](https://adventofcode.com/2024/day/1) | {star1} | {star2} |")
+
+    # Get "<!--- advent_readme_stars --->" in readme
