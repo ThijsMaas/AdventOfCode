@@ -20,28 +20,24 @@ MXMXAXMASX
 
 @timing
 def part1(input_data: str):
-    xmas_paths = []
-    grid = input_data.splitlines()
+    grid_map = {(i, j): char for i, row in enumerate(input_data.splitlines()) for j, char in enumerate(row)}
 
-    for i, row in enumerate(grid):
-        for j, char in enumerate(row):
-            if char == "X":
-                # Look for a XMAS match in any direction
-                for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, 1), (1, -1)]:
-                    ni, nj = i + di, j + dj
-                    # Check if valid in grid and matching next char
-                    if 0 <= ni < len(grid) and 0 <= nj < len(grid[0]) and grid[ni][nj] == "M":
-                        xmas = [(i, j), (ni, nj)]
-                        # Continue search in this direction
-                        ni, nj = ni + di, nj + dj
-                        # Check if valid in grid and matching next char
-                        if 0 <= ni < len(grid) and 0 <= nj < len(grid[0]) and grid[ni][nj] == "A":
-                            xmas.append((ni, nj))
-                            ni, nj = ni + di, nj + dj
-                            # Check if valid in grid and matching next char
-                            if 0 <= ni < len(grid) and 0 <= nj < len(grid[0]) and grid[ni][nj] == "S":
-                                xmas.append((ni, nj))
-                                xmas_paths.append(xmas)
+    xmas_paths = []
+    for (i, j), char in grid_map.items():
+        if char != "X":
+            continue
+        for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, 1), (1, -1)]:
+            ni, nj = i + di, j + dj
+            if grid_map.get((ni, nj)) == "M":
+                path = [(i, j), (ni, nj)]
+                ni, nj = ni + di, nj + dj
+                if grid_map.get((ni, nj)) == "A":
+                    path.append((ni, nj))
+                    ni, nj = ni + di, nj + dj
+                    if grid_map.get((ni, nj)) == "S":
+                        path.append((ni, nj))
+                        xmas_paths.append(path)
+
     return len(xmas_paths)
 
 

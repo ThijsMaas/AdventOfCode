@@ -1,6 +1,6 @@
 # Solutions in python3.
 
-Environment management using `uv`. Input is fetched and answers are submitted using code in `src/api/py`.
+Environment management using `uv`. Input is fetched and answers are submitted using code in `src/api.py`.
 
 ### Results
 <!--- advent_readme_stars --->
