@@ -58,9 +58,7 @@ def submit_answer(year: int | str, day: int, part: int, answer: int):
 
 def _check_solved(year: int | str, day: int, part: int):
     calendar = _get_calendar(year)
-    if calendar[day - 1] >= part:
-        return True
-    return False
+    return calendar[day - 1] >= part
 
 
 def _get_calendar(year: int | str):
