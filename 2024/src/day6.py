@@ -1,4 +1,5 @@
-from itertools import cycle
+from dataclasses import dataclass, field
+from operator import ne
 import re
 from sys import argv
 from api import get_input, submit_answer
@@ -21,70 +22,101 @@ EXAMPLE_INPUT = """\
 NEXT_DIRECTION = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
 
 
-def get_visited(grid_map, guard, curr_dir):
+@dataclass
+class GridMap:
+    grid: list[str]
+    bounds: tuple[int, int] = field(init=False)
+
+    def __post_init__(self):
+        self.bounds = len(self.grid), len(self.grid[0])
+
+    def get(self, i: int, j: int, default=None):
+        if 0 <= i < self.bounds[0] and 0 <= j < self.bounds[1]:
+            return self.grid[i][j]
+        return default
+
+    def first(self, value: str):
+        for i, row in enumerate(self.grid):
+            for j, char in enumerate(row):
+                if char == value:
+                    return i, j
+
+
+def get_visited(gridmap: GridMap, guard: tuple[int, int], curr_dir: tuple[int, int]):
     visited = set([guard])
 
     while True:
         next_pos = guard[0] + curr_dir[0], guard[1] + curr_dir[1]
-        if grid_map.get(next_pos) is None:
-            # Found the edge
-            break
-        elif grid_map[next_pos] == "#":
+        char = gridmap.get(*next_pos)
+        if char is None:
+            # Out of bounds
+            return visited
+        elif char == "#":
             # Turn 90 degrees
             curr_dir = NEXT_DIRECTION[curr_dir]
         else:
             # Move in this direction
             guard = next_pos
             visited.add(guard)
-    return visited
 
 
 @timing
 def part1(input_data: str):
-    grid_map = {(i, j): char for i, row in enumerate(input_data.splitlines()) for j, char in enumerate(row)}
-    guard = [k for k, v in grid_map.items() if v == "^"][0]
-    start_direction = (-1, 0)
-    visited = get_visited(grid_map, guard, start_direction)
+    gridmap = GridMap(input_data.splitlines())
+    guard = gridmap.first("^")
+    visited = get_visited(gridmap, guard, (-1, 0))
 
     return len(visited)
 
 
-def check_cycle(grid_map, guard, curr_dir):
-    visited_obstacles = set()
+def is_cycle(gridmap: GridMap, position, curr_dir, new_obstacle, visited: set):
     while True:
-        # Check if putting an obstruction at the next position will start a cycle
-        next_pos = guard[0] + curr_dir[0], guard[1] + curr_dir[1]
-        if grid_map.get(next_pos) is None:
+        next_pos = position[0] + curr_dir[0], position[1] + curr_dir[1]
+        char = gridmap.get(*next_pos)
+        if char is None:
             # Found the edge
             return False
-        elif grid_map[next_pos] == "#":
-            if (guard, curr_dir) in visited_obstacles:
-                # We are in a cycle
-                return True
-            # Add obstacle and direction of hit
-            visited_obstacles.add((guard, curr_dir))
+        elif char == "#" or next_pos == new_obstacle:
             # Turn 90 degrees
             curr_dir = NEXT_DIRECTION[curr_dir]
         else:
+            if (next_pos, curr_dir) in visited:
+                # We are in a cycle
+                return True
+            # Add visited and direction of hit
+            visited.add((next_pos, curr_dir))
             # Move in this direction
-            guard = next_pos
+            position = next_pos
 
 
 @timing
 def part2(input_data: str):
-    grid_map = {(i, j): char for i, row in enumerate(input_data.splitlines()) for j, char in enumerate(row)}
-    guard = [k for k, v in grid_map.items() if v == "^"][0]
-    start_direction = (-1, 0)
-
-    visited = get_visited(grid_map, guard, start_direction)
-    visited.remove(guard)
-
+    gridmap = GridMap(input_data.splitlines())
+    position = gridmap.first("^")
     new_obstacles = 0
-    for position in visited:
-        grid_map[position] = "#"
-        if check_cycle(grid_map, guard, start_direction):
-            new_obstacles += 1
-        grid_map[position] = "."
+
+    curr_dir = (-1, 0)
+    visited = set([(position, curr_dir)])
+    visited_positions = set([position])
+
+    while True:
+        next_pos = position[0] + curr_dir[0], position[1] + curr_dir[1]
+        char = gridmap.get(*next_pos)
+        if char is None:
+            # Out of bounds
+            break
+        elif char == "#":
+            # Turn 90 degrees
+            curr_dir = NEXT_DIRECTION[curr_dir]
+        else:
+            # Check if putting a new obstacle in this position starts a cycle after continuing this path
+            if next_pos not in visited_positions and is_cycle(gridmap, position, curr_dir, next_pos, visited.copy()):
+                new_obstacles += 1
+
+            # Move in this direction
+            position = next_pos
+            visited.add((position, curr_dir))
+            visited_positions.add(position)
 
     return new_obstacles
 
