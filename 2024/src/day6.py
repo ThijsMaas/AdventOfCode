@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from operator import ne
 import re
 from sys import argv
 from api import get_input, submit_answer
