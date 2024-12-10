@@ -8,13 +8,17 @@ source = { virtual = "." }
 
 [package.dev-dependencies]
 dev = [
+    { name = "profiling-decorator" },
     { name = "requests" },
 ]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
-dev = [{ name = "requests", specifier = ">=2.32.3" }]
+dev = [
+    { name = "profiling-decorator", specifier = ">=0.0.6" },
+    { name = "requests", specifier = ">=2.32.3" },
+]
 
 [[package]]
 name = "certifi"
@@ -71,6 +75,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9", size = 190490 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3", size = 70442 },
+]
+
+[[package]]
+name = "profiling-decorator"
+version = "0.0.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/fb/40f4bb72de4b75a136a2efeaef75644fc0aa1336bbccd1d202ed0953dd11/profiling_decorator-0.0.6.tar.gz", hash = "sha256:407eb4590ec2e5d681927ad8e9ed74b4f1e6501240cddc92f578d4210b74bafa", size = 9727 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3f/f6/ce190004fc011263c0c50bec674b7cf791f49c5d0ad28103b1452dcc1ba0/profiling_decorator-0.0.6-py3-none-any.whl", hash = "sha256:4d01eab1a7394f1f929bcd7f0dfcdc2c36c92803139a356306fc2acb9c8885cf", size = 9203 },
 ]
 
 [[package]]

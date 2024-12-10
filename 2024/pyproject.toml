@@ -8,5 +8,6 @@ dependencies = []
 
 [tool.uv]
 dev-dependencies = [
+    "profiling-decorator>=0.0.6",
     "requests>=2.32.3",
 ]
