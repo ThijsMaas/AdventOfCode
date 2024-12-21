@@ -24,8 +24,8 @@ Environment management using `uv`. Input is fetched and answers are submitted us
 | [Day 16](https://adventofcode.com/2024/day/16) | ⭐ |   |
 | [Day 17](https://adventofcode.com/2024/day/17) |   |   |
 | [Day 18](https://adventofcode.com/2024/day/18) | ⭐ | ⭐ |
-| [Day 19](https://adventofcode.com/2024/day/19) |   |   |
-| [Day 20](https://adventofcode.com/2024/day/20) |   |   |
+| [Day 19](https://adventofcode.com/2024/day/19) | ⭐ | ⭐ |
+| [Day 20](https://adventofcode.com/2024/day/20) | ⭐ |   |
 | [Day 21](https://adventofcode.com/2024/day/21) |   |   |
 | [Day 22](https://adventofcode.com/2024/day/22) |   |   |
 | [Day 23](https://adventofcode.com/2024/day/23) |   |   |
